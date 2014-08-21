@@ -1,15 +1,37 @@
-## Put comments here that give an overall description of what your
-## functions do
+## cache the inverse of a matrix
 
-## Write a short comment describing this function
+## Takes a  matrix and creates a matrix object caching its inverse. 
 
 makeCacheMatrix <- function(x = matrix()) {
+      reverse <- NULL
+      set <- function(y) {
+            x <<- y
+            rev <<- NULL
+      }
+      get <- function() x
+      setReverse <- function(solve) reverse <<- solve
+      getReverse <- function() reverse
+      list(
+            set = set,
+            get = get,
+            setReverse = setReverse,
+            getReverse = getReverse
+      )
 
 }
 
 
-## Write a short comment describing this function
+## Checks if the inverse has benn previously calculated. If yes, returnes cached inverse. Atherwise, calculates the reverse of a matrix returned by makeCacheMatrix function
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+      reverse <- x$getReverse()
+      if(!is.null(reverse)) {
+            message("getting cached data")
+            return(reverse)
+      }
+      matr <- x$get()
+      reverse <- solve(matr)
+      x$setReverse(reverse)
+      reverse
+        
 }
